@@ -37,10 +37,11 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	else { zero = abs(round(max * k)); }
 	
 	vector<vector<char>> grid(height, vector<char>(width, ' '));
-	for(int j = 0; j < width; j++) {
-		grid[i][j] = '-';
+	if (min != 0 && max != 0) {
+		for(int j = 0; j < width; j++) { 
+			grid[zero][j] = '-';
+		}
 	}
-	
 	for (i = 0; i < values.size(); i++) {
 		values[i] = round(values[i]*k);
 	}
@@ -66,7 +67,7 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 
 void draw_grid(vector<vector<char> > grid) {
 	ofstream fout;
-	fout.open("file4.txt");
+	fout.open("file6.txt");
 	
 	for (vector<char> line: grid) {
 		for (char element: line) {
