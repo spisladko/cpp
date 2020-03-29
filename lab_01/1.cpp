@@ -42,7 +42,6 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	else if (max == 0) { zero = -1; }
 	else { zero = abs(round(max * k)); }
 	
-	cout << zero << endl;
 	
 	for(int i = 0; i < height; i++) {
 		for(int j = 0; j < width; j++) {
@@ -71,14 +70,7 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	
 	if (min == 0) { grid.push_back(axes); }
 	if (max == 0) { grid.insert(grid.begin(),axes); }
-	
-	for (vector<char> line: grid) {
-		for (char element: line) {
-			cout << element;
-		}
-		cout << endl;
-	}
-	
+
 	return grid;
 }
 
