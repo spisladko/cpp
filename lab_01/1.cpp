@@ -38,10 +38,8 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	else { zero = abs(round(max * k)); }
 	
 	vector<vector<char>> grid(height, vector<char>(width, ' '));
-	for(int i = 0; i < height; i++) {
-		for(int j = 0; j < width; j++) {
-			if (i == zero)  { grid[i][j] = '-'; }
-		}
+	for(int j = 0; j < width; j++) {
+		if (i == zero)  { grid[i][j] = '-'; }
 	}
 	
 	for (i = 0; i < values.size(); i++) {
@@ -59,7 +57,7 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 			for (int i = (zero + 1); i < (zero + abs(values[j])); i++) {
 				grid[i][j] = '#';
 			} 
-		} else {}	
+		} 
 	}
 	
 	vector<char> axes (width, '-');
@@ -69,9 +67,9 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	return grid;
 }
 
-int draw_grid(vector<vector<char> > grid) {
+void draw_grid(vector<vector<char> > grid) {
 	ofstream fout;
-	fout.open("file3.txt");
+	fout.open("file4.txt");
 	
 	for (vector<char> line: grid) {
 		for (char element: line) {
@@ -79,16 +77,12 @@ int draw_grid(vector<vector<char> > grid) {
 		}
 		fout << endl;
 	}
-	return 0;
 }
  
 int main() {
-	int width, height, i, j;
-	double a,b;
-	vector<vector<char> > table;
-	cout << "Количество столбиков и высота графика" << endl;
+	int width, height;
+	double a, b;
 	cin >> width >> height;
-	cout << "Начало и конец отрезка" << endl;
 	cin >> a >> b;
 
 	draw_grid(get_grid(func, a, b, width, height));
