@@ -6,24 +6,19 @@
 using namespace std;
 
 double func(double n) {
-    //double value = -n*log(n);
+	//double value = -n*log(n);
 	//double value = sqrt(n);
 	double value = -(pow(n,2))-0.5;
-    return value;
+	return value;
 }
 
 vector<vector<char> > get_grid(double (*func)(double), double a, double b, int width, int height) {
-    vector<double> values;
-	vector<vector<char> > grid(height, vector<char>(width, ' '));
-	vector<char> axes (width, '-');
-    double n, step, value, min, max;
-	int i, j, zero;
-    n = a;
-	min = 0;
-	max = 0;
+	int i, j;
+	double step, n = a, min = 0, max = 0;
 	
-    step = (b-a)/width;
+	step = (b-a)/width;
 	
+	vector<double> values;
 	for (int i = 0; i < width; i++) {
         value = func(n);
         values.push_back(value);
@@ -37,12 +32,12 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	
 	double k = height/(abs(max)+abs(min));
 	
-		
-    if (min == 0) { zero = height; }
+	int zero;	
+	if (min == 0) { zero = height; }
 	else if (max == 0) { zero = -1; }
 	else { zero = abs(round(max * k)); }
 	
-	
+	vector<vector<char>> grid(height, vector<char>(width, ' '));
 	for(int i = 0; i < height; i++) {
 		for(int j = 0; j < width; j++) {
 			if (i == zero)  { grid[i][j] = '-'; }
@@ -67,7 +62,7 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 		} else {}	
 	}
 	
-	
+	vector<char> axes (width, '-');
 	if (min == 0) { grid.push_back(axes); }
 	if (max == 0) { grid.insert(grid.begin(),axes); }
 
@@ -88,16 +83,16 @@ int draw_grid(vector<vector<char> > grid) {
 }
  
 int main() {
-    int width, height, i, j;
-    double a,b;
+	int width, height, i, j;
+	double a,b;
 	vector<vector<char> > table;
-    cout << "Количество столбиков и высота графика" << endl;
-    cin >> width >> height;
-    cout << "Начало и конец отрезка" << endl;
-    cin >> a >> b;
+	cout << "Количество столбиков и высота графика" << endl;
+	cin >> width >> height;
+	cout << "Начало и конец отрезка" << endl;
+	cin >> a >> b;
 
 	draw_grid(get_grid(func, a, b, width, height));
-
-    return 0;
+	
+	return 0;
 }
 
