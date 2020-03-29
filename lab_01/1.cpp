@@ -8,7 +8,7 @@ using namespace std;
 double func(double n) {
 	//double value = -n*log(n);
 	//double value = sqrt(n);
-	double value = -(pow(n,2))-0.5;
+	double value = - (pow(n, 2)) - 0.5;
 	return value;
 }
 
@@ -20,9 +20,8 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	
 	vector<double> values;
 	for (int i = 0; i < width; i++) {
-        value = func(n);
-        values.push_back(value);
-        n += step;
+    	values.push_back(func(n));
+    	n += step;
 	}
 
 	for (double value: values) {
@@ -39,20 +38,18 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	
 	vector<vector<char>> grid(height, vector<char>(width, ' '));
 	for(int j = 0; j < width; j++) {
-		if (i == zero)  { grid[i][j] = '-'; }
+		grid[i][j] = '-';
 	}
 	
 	for (i = 0; i < values.size(); i++) {
-			values[i] = round(values[i]*k);
+		values[i] = round(values[i]*k);
 	}
 	
 	for (int j = 0; j < values.size(); j++) {
-	
 		if (values[j] > 0) {
 			for (int i = (zero - 1); i >= (zero - values[j]); i--) {
 				grid[i][j] = '#';
 			}
-			
 		} else if (values[j] < 0) {
 			for (int i = (zero + 1); i < (zero + abs(values[j])); i++) {
 				grid[i][j] = '#';
