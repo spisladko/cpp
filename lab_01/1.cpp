@@ -6,9 +6,9 @@
 using namespace std;
 
 double func(double n) {
-	//double value = -n*log(n);
+	double value = -n*log(n);
 	//double value = sqrt(n);
-	double value = - (pow(n, 2)) - 0.5;
+	//double value = - (pow(n, 2)) - 0.5;
 	return value;
 }
 
@@ -65,7 +65,7 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	return grid;
 }
 
-void draw_grid(vector<vector<char> > grid) {
+void draw_grid(vector<vector<char>> &grid) {
 	ofstream fout;
 	fout.open("file6.txt");
 	
