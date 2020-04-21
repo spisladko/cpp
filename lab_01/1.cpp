@@ -65,7 +65,7 @@ vector<vector<char> > get_grid(double (*func)(double), double a, double b, int w
 	return grid;
 }
 
-void draw_grid(vector<vector<char>> &grid) {
+void draw_grid(vector<vector<char>> grid) {
 	ofstream fout;
 	fout.open("file6.txt");
 	
