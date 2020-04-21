@@ -6,91 +6,123 @@ private:
     long long value;
 public:
     explicit safe_long_long_t (long long x) {
-        this->value = x;
+        value = x;
     }
 
-    void operator = (const safe_long_long_t &a) {
-        this->value = a.value;
+    void operator=(const safe_long_long_t &a) {
+        value = a.value;
     }
 
-    safe_long_long_t operator + (const safe_long_long_t& a) {
-        return safe_long_long_t (this->value + a.value);
-    }
+	safe_long_long_t &operator+=(const safe_long_long_t& a) {
+		value += a.value;
+		return *this;
+	}
 
-    safe_long_long_t operator - (const safe_long_long_t& a) {
-        return safe_long_long_t (this->value - a.value);
-    }
-
-    safe_long_long_t operator * (const safe_long_long_t& a) {
-        return safe_long_long_t (this->value * a.value);
-    }
-
-    safe_long_long_t operator / (const safe_long_long_t& a) {
-        return safe_long_long_t (this->value / a.value);
-    }
-
-    safe_long_long_t operator % (const safe_long_long_t& a) {
-        return safe_long_long_t (this->value % a.value);
-    }
+	safe_long_long_t &operator-=(const safe_long_long_t& a) {
+		value -= a.value;
+		return *this;
+	}
+	
+	safe_long_long_t &operator*=(const safe_long_long_t& a) {
+		value *= a.value;
+		return *this;
+	}
+	
+	safe_long_long_t &operator/=(const safe_long_long_t& a) {
+		value /= a.value;
+		return *this;
+	}
+	
+	safe_long_long_t &operator%=(const safe_long_long_t& a) {
+		value %= a.value;
+		return *this;
+	}
+	
 //префиксный инкремент
-    safe_long_long_t& operator ++ () {
-        this->value++;
+    safe_long_long_t& operator++() {
+        value++;
         return *this;
     }
 //постфиксный инкремент
-    safe_long_long_t& operator ++ (int i) {
-        safe_long_long_t oldValue(*this);
-        this->value++;
+    safe_long_long_t& operator++(int i) {
+        safe_long_long_t oldValue(value);
+        value++;
         return oldValue;
     }
 //префиксный декремент
-    safe_long_long_t& operator -- () {
-        this->value--;
+    safe_long_long_t& operator--() {
+        value--;
         return *this;
     }
 //постфиксный декремент
-    safe_long_long_t& operator -- (int i) {
-        safe_long_long_t oldValue(*this);
-        this->value--;
+    safe_long_long_t& operator--(int i) {
+        safe_long_long_t oldValue(value);
+        value--;
         return oldValue;
     }
 
-    bool operator == (const safe_long_long_t& a) {
-        return (this->value == a.value);
-    }
-
-    bool operator != (const safe_long_long_t& a) {
-        return (this->value != a.value);
-    }
-
-    bool operator > (const safe_long_long_t& a) {
-        return (this->value > a.value);
-    }
-
-    bool operator < (const safe_long_long_t& a) {
-        return (this->value < a.value);
-    }
-
-    bool operator >= (const safe_long_long_t& a) {
-        return (this->value >= a.value);
-    }
-
-    bool operator <= (const safe_long_long_t& a) {
-        return (this->value <= a.value);
-    }
-
-
-    friend ostream &operator << (ostream &out, const safe_long_long_t &a) {
+    friend ostream &operator<<(ostream &out, const safe_long_long_t &a) {
         out << a.value;
         return out;
     };
 
-    friend istream &operator >> (istream &in, safe_long_long_t &a)
-    {
+    friend istream &operator>>(istream &in, safe_long_long_t &a) {
         in >> a.value;
         return in;
     };
+	
+	friend bool operator==(const safe_long_long_t& a, const safe_long_long_t& b); 
+	friend bool operator!=(const safe_long_long_t& a, const safe_long_long_t& b);
+	friend bool operator>(const safe_long_long_t& a, const safe_long_long_t& b);
+	friend bool operator<(const safe_long_long_t& a, const safe_long_long_t& b);
+	friend bool operator>=(const safe_long_long_t& a, const safe_long_long_t& b);
+	friend bool operator<=(const safe_long_long_t& a, const safe_long_long_t& b);
 };
+
+safe_long_long_t operator+(safe_long_long_t a, const safe_long_long_t& b) {
+    return (a += b);
+}
+
+safe_long_long_t operator-(safe_long_long_t a, const safe_long_long_t& b) {
+    return (a -= b);
+}
+
+safe_long_long_t operator*(safe_long_long_t a, const safe_long_long_t& b) {
+    return (a *= b);
+}
+
+safe_long_long_t operator/(safe_long_long_t a, const safe_long_long_t& b) {
+    return (a /= b);
+}
+
+safe_long_long_t operator%(safe_long_long_t a, const safe_long_long_t& b) {
+    return (a %= b);
+}
+
+bool operator==(const safe_long_long_t& a, const safe_long_long_t& b) {
+    return (a == b);
+}
+
+bool operator!=(const safe_long_long_t& a, const safe_long_long_t& b) {
+    return (a != b);
+}
+
+bool operator>(const safe_long_long_t& a, const safe_long_long_t& b) {
+    return (a > b);
+}
+
+bool operator<(const safe_long_long_t& a, const safe_long_long_t& b) {
+    return (a < b);
+}
+
+bool operator>=(const safe_long_long_t& a, const safe_long_long_t& b) {
+    return (a >= b);
+}
+
+bool operator<=(const safe_long_long_t& a, const safe_long_long_t& b) {
+    return (a <= b);
+}
+
 
 class safe_c_array_t : public error_code {
 private:
@@ -98,22 +130,30 @@ private:
     int* arr;
 public:
     explicit safe_c_array_t (int n) {
-        this->size = n;
-        this->arr = new int [size];
+        size = n;
+        arr = new int[size];
     }
-
-    safe_c_array_t (const safe_c_array_t& origin)
-    {
+	
+	safe_c_array_t &operator=(const safe_c_array_t& arr2) {
+		for (int i = 0; i < size; i++) {
+			arr[i] = arr2.arr[i];
+		}
+	}
+			
+    safe_c_array_t (const safe_c_array_t& origin) {
         size = origin.size;
         arr = new int[size];
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             arr[i] = origin.arr[i];
+		}
     }
+	
     void fill() {
         for (int i = 0; i < size; i++) {
             arr[i] = i;
         }
     }
+	
     int &operator[](int k) {
         return arr[k];
     }
