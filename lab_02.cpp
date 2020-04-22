@@ -9,8 +9,9 @@ public:
         value = x;
     }
 
-    void operator=(const safe_long_long_t &a) {
+    safe_long_long_t operator=(const safe_long_long_t &a) {
         value = a.value;
+		return *this;
     }
 
 	safe_long_long_t &operator+=(const safe_long_long_t& a) {
@@ -44,7 +45,7 @@ public:
         return *this;
     }
 //постфиксный инкремент
-    safe_long_long_t& operator++(int i) {
+    safe_long_long_t operator++(int i) {
         safe_long_long_t oldValue(value);
         value++;
         return oldValue;
@@ -55,7 +56,7 @@ public:
         return *this;
     }
 //постфиксный декремент
-    safe_long_long_t& operator--(int i) {
+    safe_long_long_t operator--(int i) {
         safe_long_long_t oldValue(value);
         value--;
         return oldValue;
@@ -72,7 +73,6 @@ public:
     };
 	
 	friend bool operator==(const safe_long_long_t& a, const safe_long_long_t& b); 
-	friend bool operator!=(const safe_long_long_t& a, const safe_long_long_t& b);
 	friend bool operator>(const safe_long_long_t& a, const safe_long_long_t& b);
 	friend bool operator<(const safe_long_long_t& a, const safe_long_long_t& b);
 	friend bool operator>=(const safe_long_long_t& a, const safe_long_long_t& b);
@@ -100,27 +100,27 @@ safe_long_long_t operator%(safe_long_long_t a, const safe_long_long_t& b) {
 }
 
 bool operator==(const safe_long_long_t& a, const safe_long_long_t& b) {
-    return (a == b);
+    return (a.value == b.value);
 }
 
 bool operator!=(const safe_long_long_t& a, const safe_long_long_t& b) {
-    return (a != b);
+    return !(a == b);
 }
 
 bool operator>(const safe_long_long_t& a, const safe_long_long_t& b) {
-    return (a > b);
+    return (a.value > b.value);
 }
 
 bool operator<(const safe_long_long_t& a, const safe_long_long_t& b) {
-    return (a < b);
+    return !((a > b)||(a == b));
 }
 
 bool operator>=(const safe_long_long_t& a, const safe_long_long_t& b) {
-    return (a >= b);
+    return ((a > b)||(a == b));
 }
 
 bool operator<=(const safe_long_long_t& a, const safe_long_long_t& b) {
-    return (a <= b);
+    return !(a > b);
 }
 
 
@@ -146,6 +146,7 @@ public:
         for (int i = 0; i < size; i++) {
             arr[i] = origin.arr[i];
 		}
+		return *this;
     }
 	
     void fill() {
