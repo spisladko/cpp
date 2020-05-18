@@ -184,8 +184,10 @@ int main() {
     safe_c_array_t arr_copy = safe_c_array_t(arr);
     arr.fill();
     arr_copy.fill();
-    std::cout << arr[3]<< std::endl;
-    std::cout << arr_copy[4];
+    safe_c_array_t arr2 = arr_copy;
+    cout << arr[3]<< endl;
+    cout << arr_copy[4] << endl;
+    cout << arr2[8] << endl;
 
     return 0;
 
