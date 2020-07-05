@@ -24,20 +24,15 @@ private:
 			exit(0);
 		}
 		if (pos <= size/2) {
-			temp = head;
-			int i = 1;
-			while (i < pos) {
-				temp = temp->next;
-				i++;
+            node_t temp = head;
+            for (size_t i = 0; i < pos; i++) {
+                temp = temp->next;
 			}
-		}
-		else {
-			temp = tail;
-			int i = 1;
-			while (i <= size - pos) {
-				temp = temp->prev;
-				i++;
-			}
+		} else {
+            node_t temp = tail;
+            for (size_t i = size - 1; i > pos; i--) {
+                temp = temp->prev;
+            }
 		}
 	return temp;
 	}
@@ -49,7 +44,7 @@ public:
 	}
 
     int_list_t(const int_list_t &other) {
-		head = tail = NULL;
+		head = tail = nullptr;
 		size = 0;
 		node_t* temp = other.head;
 		while (temp != nullptr) {
@@ -59,6 +54,8 @@ public:
 	}
 
     int_list_t(size_t count, int value) {
+		head = tail = nullptr;
+		size = 0;
         for (size_t i = 0; i < count; i++) {
             push_back(value);
         }
@@ -103,6 +100,8 @@ public:
 			delete head;
 			head = tail;
 		}
+		head = tail = nullptr;
+		size = 0;
 
     }
 
@@ -115,7 +114,7 @@ public:
 	}
 
     void insert(size_t pos, int new_val) {
-		if (pos >= size) {
+		if (pos > size) {
 			std::cout << "Index is out of range";
 			exit(0);
 		}
@@ -126,10 +125,7 @@ public:
 		}
 		int i = 1;
 		node_t* Ins = head;
-		while (i < pos) {
-			Ins = Ins->next;
-			i++;
-		}
+		Ins = get(pos)
 		node_t* PrevIns = Ins->prev;
 		node_t* temp = new node_t(new_val);
 		if(PrevIns != 0 && size != 1)
@@ -185,20 +181,32 @@ public:
 	}
 
 	void pop_front() {
-		node_t* temp;
-		temp->prev = 0;
-		temp->value = head->value;
-		temp->next = head;
-		delete head;
-		temp = head;
+		if (size == 1) {
+			head = tail = nullptr;
+			size = 0;
+		} else {
+			node_t* temp;
+			temp->prev = 0;
+			temp->value = head->value;
+			temp->next = head;
+			delete head;
+			temp = head;
+			size--;
+		}
 	}
 
 	void pop_back() {
-		node_t* temp;
-		temp->next = 0;
-		temp->value = tail->value;
-		delete tail;
-		temp = tail;
+		if (size == 1) {
+			head = tail = nullptr;
+			size = 0;
+		} else {
+			node_t* temp;
+			temp->next = 0;
+			temp->value = tail->value;
+			delete tail;
+			temp = tail;
+			size--;
+		}
 	}
 
     int_list_t splice(size_t start_pos, size_t count) {
