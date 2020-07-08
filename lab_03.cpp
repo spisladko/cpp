@@ -283,4 +283,8 @@ std::ostream &operator<<(std::ostream &stream, const int_list_t &list) {
         temp = temp->next;
     }
     return stream;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 593eed6953b53884936e59edaaa4bcaec1606f39
